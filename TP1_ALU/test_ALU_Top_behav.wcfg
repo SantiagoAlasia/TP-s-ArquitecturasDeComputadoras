@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="test_ALU_Top_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="glbl" />
+            <top_module name="test_ALU_Top" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="1,026.666 ns"></ZoomStartTime>
+      <ZoomEndTime time="2,026.667 ns"></ZoomEndTime>
+      <Cursor1Time time="1,860.000 ns"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="193"></NameColumnWidth>
+      <ValueColumnWidth column_width="81"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="11" />
+   <wvobject type="array" fp_name="/test_ALU_Top/i_switches">
+      <obj_property name="ElementShortName">i_switches[7:0]</obj_property>
+      <obj_property name="ObjectShortName">i_switches[7:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/test_ALU_Top/DUT/reg_a">
+      <obj_property name="ElementShortName">reg_a[7:0]</obj_property>
+      <obj_property name="ObjectShortName">reg_a[7:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/test_ALU_Top/DUT/reg_b">
+      <obj_property name="ElementShortName">reg_b[7:0]</obj_property>
+      <obj_property name="ObjectShortName">reg_b[7:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/test_ALU_Top/DUT/reg_opcode">
+      <obj_property name="ElementShortName">reg_opcode[5:0]</obj_property>
+      <obj_property name="ObjectShortName">reg_opcode[5:0]</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/test_ALU_Top/i_load_1">
+      <obj_property name="ElementShortName">i_load_1</obj_property>
+      <obj_property name="ObjectShortName">i_load_1</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/test_ALU_Top/i_load_2">
+      <obj_property name="ElementShortName">i_load_2</obj_property>
+      <obj_property name="ObjectShortName">i_load_2</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/test_ALU_Top/i_load_3">
+      <obj_property name="ElementShortName">i_load_3</obj_property>
+      <obj_property name="ObjectShortName">i_load_3</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/test_ALU_Top/DUT/reg_result">
+      <obj_property name="ElementShortName">reg_result[7:0]</obj_property>
+      <obj_property name="ObjectShortName">reg_result[7:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/test_ALU_Top/o_leds">
+      <obj_property name="ElementShortName">o_leds[7:0]</obj_property>
+      <obj_property name="ObjectShortName">o_leds[7:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/test_ALU_Top/NB_DATA">
+      <obj_property name="ElementShortName">NB_DATA[31:0]</obj_property>
+      <obj_property name="ObjectShortName">NB_DATA[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/test_ALU_Top/NB_OP">
+      <obj_property name="ElementShortName">NB_OP[31:0]</obj_property>
+      <obj_property name="ObjectShortName">NB_OP[31:0]</obj_property>
+   </wvobject>
+</wave_config>

@@ -1,6 +1,6 @@
 `timescale 1ns / 1ps
 //////////////////////////////////////////////////////////////////////////////
-// test_ALU_Top - Testbench con verificación automáctica
+// test_auto_ALU_Top - Testbench con verificación automáctica
 //////////////////////////////////////////////////////////////////////////////
 
 module test_auto_ALU_Top;
@@ -62,7 +62,7 @@ module test_auto_ALU_Top;
 
     initial begin
         $dumpfile("dump.vcd");
-        $dumpvars(0, test_ALU_Top);
+        $dumpvars(0, test_auto_ALU_Top);
         $timeformat(-9, 0, " ns", 10);   // que %t se imprima en ns
 
         errores = 0;

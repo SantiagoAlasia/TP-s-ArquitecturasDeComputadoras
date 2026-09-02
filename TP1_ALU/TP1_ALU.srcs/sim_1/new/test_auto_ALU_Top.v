@@ -3,7 +3,7 @@
 // test_ALU_Top - Testbench con verificación automáctica
 //////////////////////////////////////////////////////////////////////////////
 
-module test_ALU_Top;
+module test_auto_ALU_Top;
 
     parameter NB_DATA = 8;
     parameter NB_OP   = 6;

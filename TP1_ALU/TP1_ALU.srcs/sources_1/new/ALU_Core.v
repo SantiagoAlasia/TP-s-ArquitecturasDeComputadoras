@@ -51,7 +51,7 @@ module ALU_Core
             AND : res = i_data_a & i_data_b;
             OR  : res = i_data_a | i_data_b;
             XOR : res = i_data_a ^ i_data_b;
-            SRA : res = i_data_a >>> i_data_b;
+            SRA : res = $signed(i_data_a) >>> i_data_b;
             SRL : res = i_data_a >> i_data_b;
             NOR : res = ~(i_data_a | i_data_b);
             default : res = {NB_DATA{1'b0}};

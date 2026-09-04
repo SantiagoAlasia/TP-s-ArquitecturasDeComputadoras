@@ -20,59 +20,67 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 module test_ALU_Top;
-
     parameter NB_DATA = 8;
     parameter NB_OP   = 6;
+    parameter CLK_PERIOD = 10;
 
-    // Entradas
+    // Entradas / Salidas
     reg  [NB_DATA - 1 : 0] i_switches;
+    reg                    clk;
     reg                    i_load_1;
     reg                    i_load_2;
     reg                    i_load_3;
-    
-    // Salida
     wire [NB_DATA - 1 : 0] o_leds;
 
-    // DUT: Device Under Test
+    // Instancia del DUT
     ALU_Top #(
         .NB_DATA (NB_DATA),
         .NB_OP   (NB_OP)
     ) DUT (
         .i_switches (i_switches),
+        .clk        (clk),
         .i_load_1   (i_load_1),
         .i_load_2   (i_load_2),
         .i_load_3   (i_load_3),
         .o_leds     (o_leds)
     );
 
+    // ---------- Generación de clock ----------
+    initial clk = 0;
+    always #(CLK_PERIOD/2) clk = ~clk;
+
     // Funciones reutilizables
     task load_a(input [NB_DATA - 1 : 0] value);
     begin
         i_switches = value;
-        #10 i_load_1 = 1;
-        #20 i_load_1 = 0;
-        #10;
+        i_load_1   = 1;
+        #(CLK_PERIOD);          // un flanco de clock -> reg_a se carga
+        i_load_1   = 0;
+        #(CLK_PERIOD);
     end
     endtask
 
     task load_b(input [NB_DATA - 1 : 0] value);
     begin
         i_switches = value;
-        #10 i_load_2 = 1;
-        #20 i_load_2 = 0;
-        #10;
+        i_load_2   = 1;
+        #(CLK_PERIOD);          // un flanco de clock -> reg_b se carga
+        i_load_2   = 0;
+        #(CLK_PERIOD);
     end
     endtask
 
     task load_opcode(input [NB_OP - 1 : 0] value);
     begin
         i_switches = value;
-        #10 i_load_3 = 1;
-        #20 i_load_3 = 0;   // negedge dispara reg_result aca
-        #10;
+        i_load_3   = 1;
+        #(CLK_PERIOD);          // un flanco de clock -> reg_opcode se carga
+        i_load_3   = 0;
+        #(CLK_PERIOD);
     end
     endtask
 
+    // ---------- Estímulos ----------
     initial begin
         $dumpfile("dump.vcd");
         $dumpvars(0, test_ALU_Top);
@@ -81,7 +89,7 @@ module test_ALU_Top;
         i_load_1   = 0;
         i_load_2   = 0;
         i_load_3   = 0;
-        #20;
+        #(CLK_PERIOD*2);
 
         // Caso 1: ADD, 5 + 3 = 8
         load_a(8'd5);
@@ -123,7 +131,7 @@ module test_ALU_Top;
         load_a(8'h80);
         load_b(8'd5);
         load_opcode(6'b000011);
-        #10 $display("Caso 7  (SRA 80>>>5)     o_leds=%h (esperado 04)", o_leds);
+        #10 $display("Caso 7  (SRA 80>>>5)     o_leds=%h (esperado FC)", o_leds);
 
         // Caso 8: NOR, 0x0F ~| 0xF0 = 0x00
         load_a(8'h0F);
@@ -159,7 +167,7 @@ module test_ALU_Top;
         load_opcode(6'b100000); // ADD
         #10 $display("Caso 13 (dispara con A nuevo) o_leds=%d  (esperado 30)", o_leds);
 
-        #50;
+        #(CLK_PERIOD*4);
         $finish;
     end
 

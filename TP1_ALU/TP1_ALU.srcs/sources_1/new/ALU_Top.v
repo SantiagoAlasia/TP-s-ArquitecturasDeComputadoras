@@ -14,7 +14,7 @@
 // Dependencies: 
 // 
 // Revision:
-// Revision 0.01 - File Created
+// Revision 0.02 - Registros instanciados con reset, salida combinacional
 // Additional Comments:
 // 
 //////////////////////////////////////////////////////////////////////////////////
@@ -27,34 +27,48 @@ module ALU_Top
 (
     input  wire [NB_DATA - 1 : 0]      i_switches,  
     input  wire                        clk,          // Señal de clock para los registros
+    input  wire                        i_reset,      // Señal de reset
     input  wire                        i_load_1,     // Señal para cargar A
     input  wire                        i_load_2,     // Señal para cargar B
-    input  wire                        i_load_3,     // Señal para cargar opcode y disparar resultado
+    input  wire                        i_load_3,     // Señal para cargar opcode
     
     output wire [NB_DATA - 1 : 0]      o_leds
 );
-    wire [NB_DATA - 1 : 0] alu_result;
-    wire [NB_DATA - 1 : 0] reg_result;
     wire [NB_DATA - 1 : 0] reg_a;
     wire [NB_DATA - 1 : 0] reg_b;
     wire [NB_OP - 1 : 0]   reg_opcode;
     
-    // Instancia del modulo Registros
-    Registros #(
-        .NB_DATA (NB_DATA),
-        .NB_OP   (NB_OP)
-    ) registros_inst(
-        .i_switches     (i_switches),
-        .clk            (clk),
-        .i_load_1       (i_load_1),    
-        .i_load_2       (i_load_2),     
-        .i_load_3       (i_load_3),     
-        .i_alu_result   (alu_result),
-    
-        .o_reg_a        (reg_a),
-        .o_reg_b        (reg_b),
-        .o_reg_opcode   (reg_opcode),
-        .o_reg_result   (reg_result)
+    // Registro A
+    Registro #(
+        .NB (NB_DATA)
+    ) reg_a_inst (
+        .clk      (clk),
+        .i_reset  (i_reset),
+        .i_enable (i_load_1),
+        .i_data   (i_switches),
+        .o_data   (reg_a)
+    );
+
+    // Registro B
+    Registro #(
+        .NB (NB_DATA)
+    ) reg_b_inst (
+        .clk      (clk),
+        .i_reset  (i_reset),
+        .i_enable (i_load_2),
+        .i_data   (i_switches),
+        .o_data   (reg_b)
+    );
+
+    // Registro de Opcode: mismo modulo, otro ancho
+    Registro #(
+        .NB (NB_OP)
+    ) reg_opcode_inst (
+        .clk      (clk),
+        .i_reset  (i_reset),
+        .i_enable (i_load_3),
+        .i_data   (i_switches[NB_OP - 1 : 0]),
+        .o_data   (reg_opcode)
     );
 
     // Instancia del modulo ALU_Core
@@ -62,13 +76,10 @@ module ALU_Top
         .NB_DATA (NB_DATA),
         .NB_OP   (NB_OP)
     ) alu_core_inst (
-        .o_result  (alu_result),
-        
+        .o_result  (o_leds),
         .i_data_a  (reg_a),
         .i_data_b  (reg_b),
         .i_opcode  (reg_opcode)
     );
-
-    assign o_leds = reg_result;
 
 endmodule

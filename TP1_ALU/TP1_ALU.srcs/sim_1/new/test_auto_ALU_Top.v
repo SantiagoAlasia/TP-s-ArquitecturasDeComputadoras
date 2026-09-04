@@ -9,9 +9,14 @@ module test_auto_ALU_Top;
     parameter NB_OP   = 6;
     parameter N_TEST  = 200;
 
+    reg                clk;
+    reg                i_reset;
     reg  [NB_DATA-1:0] i_switches;
     reg                i_load_1, i_load_2, i_load_3;
     wire [NB_DATA-1:0] o_leds;
+
+    // Reloj de 100 MHz
+    always #5 clk = ~clk;
 
     integer errores, i, seed;
     reg [NB_DATA-1:0] a, b;
@@ -19,6 +24,8 @@ module test_auto_ALU_Top;
     reg [NB_OP-1:0]   ops [0:7];
 
     ALU_Top #(.NB_DATA(NB_DATA), .NB_OP(NB_OP)) DUT (
+        .clk        (clk),
+        .i_reset    (i_reset),
         .i_switches (i_switches),
         .i_load_1   (i_load_1),
         .i_load_2   (i_load_2),
@@ -47,16 +54,17 @@ module test_auto_ALU_Top;
         input [NB_DATA-1:0] valor;
         input [1:0]         sel;
         begin
+            @(negedge clk);
             i_switches = valor;
-            #10;
             case (sel)
                 2'd1: i_load_1 = 1;
                 2'd2: i_load_2 = 1;
                 2'd3: i_load_3 = 1;
             endcase
-            #20;
+            @(negedge clk);
+            @(negedge clk);
             i_load_1 = 0; i_load_2 = 0; i_load_3 = 0;
-            #10;
+            @(negedge clk);
         end
     endtask
 
@@ -71,7 +79,12 @@ module test_auto_ALU_Top;
         ops[0]=6'b100000; ops[1]=6'b100010; ops[2]=6'b100100; ops[3]=6'b100101;
         ops[4]=6'b100110; ops[5]=6'b100111; ops[6]=6'b000010; ops[7]=6'b000011;
 
+        clk        = 0;
+        i_reset    = 1;
         i_switches = 0; i_load_1 = 0; i_load_2 = 0; i_load_3 = 0;
+        repeat (4) @(negedge clk);    // reset activo 4 ciclos
+        i_reset = 0;
+        repeat (2) @(negedge clk);
         #20;
 
         for (i = 0; i < N_TEST; i = i + 1) begin

@@ -1,0 +1,65 @@
+
+*** Running vivado
+    with args -log ALU_Top.vds -m64 -product Vivado -mode batch -messageDb vivado.pb -notrace -source ALU_Top.tcl
+
+INFO: [Common 17-3922] A valid Vivado Design Suite BASIC license has been detected. Your current license is active and will expire on 25-aug-2027.
+#-----------------------------------------------------------
+# Vivado v2026.1 (64-bit)
+# SW Build 6511674 on Tue Jun 16 11:01:26 MDT 2026
+# IP Build 6504888 on Tue Jun 09 09:05:25 MDT 2026
+# SharedData Build 6501428 on Mon Jun 08 17:34:18 MDT 2026
+# Start of session at: Mon Sep  7 21:19:30 2026
+# Process ID         : 11368
+# Current directory  : /home/santiagoalasia/Documentos/UNC/ArquitecturaDeComputadoras/TP-s-ArquitecturasDeComputadoras/TP1_ALU/TP1_ALU.runs/synth_1
+# Command line       : vivado -log ALU_Top.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source ALU_Top.tcl
+# Log file           : /home/santiagoalasia/Documentos/UNC/ArquitecturaDeComputadoras/TP-s-ArquitecturasDeComputadoras/TP1_ALU/TP1_ALU.runs/synth_1/ALU_Top.vds
+# Journal file       : /home/santiagoalasia/Documentos/UNC/ArquitecturaDeComputadoras/TP-s-ArquitecturasDeComputadoras/TP1_ALU/TP1_ALU.runs/synth_1/vivado.jou
+# Running On         : santiagoalasia-X510UQ
+# Platform           : Linuxmint
+# Operating System   : Linux Mint 22.3
+# Processor Detail   : Intel(R) Core(TM) i5-7200U CPU @ 2.50GHz
+# CPU Frequency      : 3100.007 MHz
+# CPU Physical cores : 2
+# CPU Logical cores  : 4
+# Host memory        : 8200 MB
+# Swap memory        : 2147 MB
+# Total Virtual      : 10347 MB
+# Available Virtual  : 5665 MB
+#-----------------------------------------------------------
+
+****** Vivado v2026.1 (64-bit)
+  **** SW Build 6511674 on Tue Jun 16 11:01:26 MDT 2026
+  **** IP Build 6504888 on Tue Jun 09 09:05:25 MDT 2026
+  **** SharedData Build 6501428 on Mon Jun 08 17:34:18 MDT 2026
+  **** Start of session at: Mon Sep  7 21:19:30 2026
+    ** Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+    ** Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
+
+source ALU_Top.tcl -notrace
+create_project: Time (s): cpu = 00:00:23 ; elapsed = 00:00:08 . Memory (MB): peak = 1726.172 ; gain = 282.059 ; free physical = 130 ; free virtual = 4954
+Command: synth_design -top ALU_Top -part xc7a35tcpg236-1
+Starting synth_design
+Attempting to get a license for feature 'Vivado_Synthesis' and/or device 'xc7a35t'
+INFO: [Common 17-349] Got license for feature 'Vivado_Synthesis' and/or device 'xc7a35t'
+INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 7 processes.
+INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
+INFO: [Synth 8-7075] Helper process launched with PID 11422
+---------------------------------------------------------------------------------
+Starting Synthesize : Time (s): cpu = 00:00:08 ; elapsed = 00:00:08 . Memory (MB): peak = 2213.430 ; gain = 487.258 ; free physical = 229 ; free virtual = 4275
+---------------------------------------------------------------------------------
+INFO: [Synth 8-6157] synthesizing module 'ALU_Top' [/home/santiagoalasia/Documentos/UNC/ArquitecturaDeComputadoras/TP-s-ArquitecturasDeComputadoras/TP1_ALU/TP1_ALU.srcs/sources_1/new/ALU_Top.v:22]
+ERROR: [Synth 8-439] module 'Registro' not found [/home/santiagoalasia/Documentos/UNC/ArquitecturaDeComputadoras/TP-s-ArquitecturasDeComputadoras/TP1_ALU/TP1_ALU.srcs/sources_1/new/ALU_Top.v:44]
+	Parameter NB bound to: 8 - type: integer 
+ERROR: [Synth 8-6156] failed synthesizing module 'ALU_Top' [/home/santiagoalasia/Documentos/UNC/ArquitecturaDeComputadoras/TP-s-ArquitecturasDeComputadoras/TP1_ALU/TP1_ALU.srcs/sources_1/new/ALU_Top.v:22]
+---------------------------------------------------------------------------------
+Finished Synthesize : Time (s): cpu = 00:00:10 ; elapsed = 00:00:10 . Memory (MB): peak = 2297.398 ; gain = 571.227 ; free physical = 181 ; free virtual = 4183
+---------------------------------------------------------------------------------
+synthesize failed
+INFO: [Common 17-83] Releasing license: Vivado_Synthesis
+6 Infos, 0 Warnings, 0 Critical Warnings and 3 Errors encountered.
+synth_design failed
+synth_design: Time (s): cpu = 00:00:12 ; elapsed = 00:00:13 . Memory (MB): peak = 2315.211 ; gain = 589.039 ; free physical = 180 ; free virtual = 4183
+INFO: [Common 17-2834] synth_design peak Physical Memory [PSS] (MB): overall = 1630.065; main = 1344.320; forked = 285.745
+INFO: [Common 17-2834] synth_design peak Virtual Memory [VSS] (MB): overall = 3361.168; main = 2315.215; forked = 1045.969
+ERROR: [Common 17-69] Command failed: Vivado Synthesis failed
+INFO: [Common 17-206] Exiting Vivado at Mon Sep  7 21:19:56 2026...

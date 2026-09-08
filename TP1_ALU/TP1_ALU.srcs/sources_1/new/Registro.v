@@ -13,7 +13,7 @@ module Registro
     always @(posedge clk)
     begin
         if (i_reset)
-            o_data <= {NB{1'b0}}
+            o_data <= {NB{1'b0}};
         if (i_enable)
             o_data <= i_data;
     end

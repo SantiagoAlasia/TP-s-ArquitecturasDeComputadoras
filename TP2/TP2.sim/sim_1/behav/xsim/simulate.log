@@ -1,0 +1,7 @@
+Time resolution is 1 ps
+OK   100MHz 19200: tick every 326 cycles
+OK   100MHz 9600: tick every 651 cycles
+OK   50MHz 19200: tick every 163 cycles
+OK   reset: no ticks in reset, counter restarts from zero
+TEST PASSED (0 errors)
+$finish called at time : 76655 ns : File "C:/Datos/Facultad/arqui/TP2/TP2.srcs/sim_1/new/tb_baud_generator.v" Line 144

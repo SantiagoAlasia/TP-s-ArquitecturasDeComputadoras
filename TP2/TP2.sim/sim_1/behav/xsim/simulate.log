@@ -1,7 +1,19 @@
 Time resolution is 1 ps
-OK   100MHz 19200: tick every 326 cycles
-OK   100MHz 9600: tick every 651 cycles
-OK   50MHz 19200: tick every 163 cycles
-OK   reset: no ticks in reset, counter restarts from zero
-TEST PASSED (0 errors)
-$finish called at time : 76655 ns : File "C:/Datos/Facultad/arqui/TP2/TP2.srcs/sim_1/new/tb_baud_generator.v" Line 144
+t=0  tx=x  tx_done=0  state=xx
+t=5000  tx=1  tx_done=0  state=00
+t=65000  tx=1  tx_done=0  state=01
+t=75000  tx=0  tx_done=0  state=01
+t=675000  tx=0  tx_done=0  state=10
+t=685000  tx=1  tx_done=0  state=10
+t=1325000  tx=0  tx_done=0  state=10
+t=1965000  tx=1  tx_done=0  state=10
+t=3885000  tx=0  tx_done=0  state=10
+t=4525000  tx=1  tx_done=0  state=10
+t=5165000  tx=0  tx_done=0  state=10
+t=5795000  tx=0  tx_done=0  state=11
+t=5805000  tx=1  tx_done=0  state=11
+t=6425000  tx=1  tx_done=1  state=11
+t=6435000  tx=1  tx_done=0  state=00
+Transmision completa. Byte enviado: 10011010
+$finish called at time : 6475 ns : File "/home/santiagoalasia/Documentos/UNC/ArquitecturaDeComputadoras/TP-s-ArquitecturasDeComputadoras/TP2/TP2.srcs/sim_1/new/test_uart_tx.v" Line 89
+INFO: xsimkernel Simulation Memory Usage: 291712 KB (Peak: 349244 KB), Simulation CPU Usage: 1960 ms

@@ -4,13 +4,14 @@
 // Company: UNC
 // Module Name: fifo
 // Project Name: TP2-UART
-// Description: Bugger FIFO Circular
+// Description: Buffer Circular. FSM de 3 estados (idle, write, read) que implementa
+//              las operaciones mediante dos punteros independientes.
 //////////////////////////////////////////////////////////////////////////////////
 
 module fifo
 #(
-    parameter NB_DATA = 8,  // Num. de bits que conforman un dato.
-    parameter N_DIR   = 16  // Num. de direcciones del buffer.
+    parameter NB_DATA = 8,  // Ancho de cada dato almacenado
+    parameter N_DIR   = 16  // Cantidad de posiciones del buffer (debe ser potencia de 2)
 )
 (
     input  wire                    i_clk,
@@ -18,7 +19,7 @@ module fifo
     input  wire                    i_read,
     input  wire                    i_write,
     input  wire [NB_DATA - 1 : 0]  i_data,
-    
+
     output wire                    o_full,
     output wire                    o_empty,
     output wire [NB_DATA - 1 : 0]  o_data,
@@ -32,18 +33,23 @@ module fifo
 
     localparam integer N_PTR = $clog2(N_DIR);
 
-    // Array de Registros
-    reg [NB_DATA - 1 : 0] buffer [0 : N_DIR - 1];
+    // Memoria interna
+    reg [NB_DATA - 1 : 0] mem [0 : N_DIR - 1];
 
-    reg [1:0]           state_reg;
-    reg [1:0]           next_state_reg;
+    // Registros de estado
+    reg [1:0]              state_reg;
+    reg [N_PTR - 1 : 0]    wr_ptr_reg;
+    reg [N_PTR - 1 : 0]    rd_ptr_reg;
+    reg [N_PTR : 0]        count_reg;
+    reg [NB_DATA - 1 : 0]  data_reg;
+    reg                    done_reg;
 
-    reg [N_PTR - 1 : 0]   wr_ptr_reg,  next_wr_ptr_reg;
-    reg [N_PTR - 1 : 0]   rd_ptr_reg,  next_rd_ptr_reg;
-    reg [N_PTR : 0]       count_reg,   next_count_reg;
-    reg [NB_DATA - 1 : 0] data_reg,    next_data_reg;
-
-    // Banderas combinacionales
+    reg [1:0]              next_state_reg;
+    reg [N_PTR - 1 : 0]    next_wr_ptr_reg;
+    reg [N_PTR - 1 : 0]    next_rd_ptr_reg;
+    reg [N_PTR : 0]        next_count_reg;
+    reg [NB_DATA - 1 : 0]  next_data_reg;
+    
     wire full  = (count_reg == N_DIR);
     wire empty = (count_reg == 0);
 
@@ -57,6 +63,7 @@ module fifo
                 rd_ptr_reg <= 0;
                 count_reg  <= 0;
                 data_reg   <= 0;
+                done_reg   <= 1'b0;
             end
         else
             begin
@@ -65,13 +72,21 @@ module fifo
                 rd_ptr_reg <= next_rd_ptr_reg;
                 count_reg  <= next_count_reg;
                 data_reg   <= next_data_reg;
+                done_reg   <= (state_reg == write) || (state_reg == read);
             end
+    end
+
+    // Escritura a Memoria
+    always @(posedge i_clk)
+    begin
+        if (state_reg == write)
+            mem[wr_ptr_reg] <= i_data;
     end
 
     // Next State Logic & Output Logic
     always @*
     begin
-        next_state_reg  = idle;
+        next_state_reg  = state_reg;
         next_wr_ptr_reg = wr_ptr_reg;
         next_rd_ptr_reg = rd_ptr_reg;
         next_count_reg  = count_reg;
@@ -88,15 +103,14 @@ module fifo
 
             write:
                 begin
-                    next_wr_ptr_reg    = wr_ptr_reg + 1'b1;
-                    next_count_reg     = count_reg + 1'b1;
-                    buffer[wr_ptr_reg] = i_data;
-                    next_state_reg     = idle;
+                    next_wr_ptr_reg = wr_ptr_reg + 1'b1;
+                    next_count_reg  = count_reg + 1'b1;
+                    next_state_reg  = idle;
                 end
 
             read:
                 begin
-                    next_data_reg   = buffer[rd_ptr_reg];
+                    next_data_reg   = mem[rd_ptr_reg];
                     next_rd_ptr_reg = rd_ptr_reg + 1'b1;
                     next_count_reg  = count_reg - 1'b1;
                     next_state_reg  = idle;
@@ -110,6 +124,6 @@ module fifo
     assign o_full  = full;
     assign o_empty = empty;
     assign o_data  = data_reg;
-    assign o_done  = (state_reg == write) || (state_reg == read);
+    assign o_done  = done_reg;
 
 endmodule

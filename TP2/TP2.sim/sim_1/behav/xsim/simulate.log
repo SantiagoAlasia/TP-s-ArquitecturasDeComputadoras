@@ -1,19 +1,42 @@
 Time resolution is 1 ps
-t=0  tx=x  tx_done=0  state=xx
-t=5000  tx=1  tx_done=0  state=00
-t=65000  tx=1  tx_done=0  state=01
-t=75000  tx=0  tx_done=0  state=01
-t=675000  tx=0  tx_done=0  state=10
-t=685000  tx=1  tx_done=0  state=10
-t=1325000  tx=0  tx_done=0  state=10
-t=1965000  tx=1  tx_done=0  state=10
-t=3885000  tx=0  tx_done=0  state=10
-t=4525000  tx=1  tx_done=0  state=10
-t=5165000  tx=0  tx_done=0  state=10
-t=5795000  tx=0  tx_done=0  state=11
-t=5805000  tx=1  tx_done=0  state=11
-t=6425000  tx=1  tx_done=1  state=11
-t=6435000  tx=1  tx_done=0  state=00
-Transmision completa. Byte enviado: 10011010
-$finish called at time : 6475 ns : File "/home/santiagoalasia/Documentos/UNC/ArquitecturaDeComputadoras/TP-s-ArquitecturasDeComputadoras/TP2/TP2.srcs/sim_1/new/test_uart_tx.v" Line 89
-INFO: xsimkernel Simulation Memory Usage: 291712 KB (Peak: 349244 KB), Simulation CPU Usage: 1960 ms
+Caso 1  empty inicial = 1 (esperado 1)
+Caso 2a empty tras 1 escritura = 0 (esperado 0)
+Caso 2b data_out = aa (esperado AA)
+Caso 2c empty tras leer el unico dato = 1 (esperado 1)
+Caso 3a primer dato leido = 11 (esperado 11)
+Caso 3b segundo dato leido = 22 (esperado 22)
+Caso 3c tercer dato leido = 33 (esperado 33)
+Caso 3d empty tras vaciar = 1 (esperado 1)
+Caso 4  leer vacio: empty sigue = 1 (esperado 1, sin cambios)
+Caso 5  full tras llenar (4/4) = 1 (esperado 1)
+Caso 5b full sigue en 1 tras intento de escritura extra = 1 (esperado 1)
+Caso 5c dato = a0 (esperado A0)
+Caso 5d dato = a1 (esperado A1)
+Caso 5e dato = a2 (esperado A2)
+Caso 5f dato = a3 (esperado A3)
+Caso 5g empty tras vaciar todo = 1 (esperado 1)
+Caso 6  (verificar o_done en la waveform para write y read)
+$finish called at time : 610 ns : File "/home/santiagoalasia/Documentos/UNC/ArquitecturaDeComputadoras/TP-s-ArquitecturasDeComputadoras/TP2/TP2.srcs/sim_1/new/test_fifo.v" Line 151
+The current simulation has finished. Please use 'restart' to begin a new simulation.
+$finish called at time : 610 ns : File "/home/santiagoalasia/Documentos/UNC/ArquitecturaDeComputadoras/TP-s-ArquitecturasDeComputadoras/TP2/TP2.srcs/sim_1/new/test_fifo.v" Line 151
+The current simulation has finished. Please use 'restart' to begin a new simulation.
+$finish called at time : 610 ns : File "/home/santiagoalasia/Documentos/UNC/ArquitecturaDeComputadoras/TP-s-ArquitecturasDeComputadoras/TP2/TP2.srcs/sim_1/new/test_fifo.v" Line 151
+Caso 1  empty inicial = 1 (esperado 1)
+Caso 2a empty tras 1 escritura = 0 (esperado 0)
+Caso 2b data_out = aa (esperado AA)
+Caso 2c empty tras leer el unico dato = 1 (esperado 1)
+Caso 3a primer dato leido = 11 (esperado 11)
+Caso 3b segundo dato leido = 22 (esperado 22)
+Caso 3c tercer dato leido = 33 (esperado 33)
+Caso 3d empty tras vaciar = 1 (esperado 1)
+Caso 4  leer vacio: empty sigue = 1 (esperado 1, sin cambios)
+Caso 5  full tras llenar (4/4) = 1 (esperado 1)
+Caso 5b full sigue en 1 tras intento de escritura extra = 1 (esperado 1)
+Caso 5c dato = a0 (esperado A0)
+Caso 5d dato = a1 (esperado A1)
+Caso 5e dato = a2 (esperado A2)
+Caso 5f dato = a3 (esperado A3)
+Caso 5g empty tras vaciar todo = 1 (esperado 1)
+Caso 6  (verificar o_done en la waveform para write y read)
+$finish called at time : 610 ns : File "/home/santiagoalasia/Documentos/UNC/ArquitecturaDeComputadoras/TP-s-ArquitecturasDeComputadoras/TP2/TP2.srcs/sim_1/new/test_fifo.v" Line 151
+INFO: xsimkernel Simulation Memory Usage: 357248 KB (Peak: 422784 KB), Simulation CPU Usage: 1980 ms

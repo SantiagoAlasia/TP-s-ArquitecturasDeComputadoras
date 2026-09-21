@@ -49,15 +49,15 @@ module tb_baud_generator;
         endcase
     end
  
-    BaudGenerator #(
+    Baud_Rate_Generator #(
         .CLK_FREQ_HZ(100_000_000), .BAUD_RATE(19_200), .OVERSAMPLING(16)
     ) dut_100mhz_19200 (.i_clk(clk), .i_reset(reset), .o_tick(tick_100mhz_19200));
  
-    BaudGenerator #(
+    Baud_Rate_Generator #(
         .CLK_FREQ_HZ(100_000_000), .BAUD_RATE(9_600), .OVERSAMPLING(16)
     ) dut_100mhz_9600 (.i_clk(clk), .i_reset(reset), .o_tick(tick_100mhz_9600));
  
-    BaudGenerator #(
+    Baud_Rate_Generator #(
         .CLK_FREQ_HZ(50_000_000), .BAUD_RATE(19_200), .OVERSAMPLING(16)
     ) dut_50mhz_19200 (.i_clk(clk), .i_reset(reset), .o_tick(tick_50mhz_19200));
  

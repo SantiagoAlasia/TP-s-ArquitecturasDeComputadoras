@@ -16,7 +16,7 @@ module test_fifo;
     wire [NB_DATA - 1 : 0] data_out;
     wire                   done;
 
-    fifo #(
+    Fifo #(
         .NB_DATA (NB_DATA),
         .N_DIR   (N_DIR)
     ) DUT (

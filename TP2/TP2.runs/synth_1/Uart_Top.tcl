@@ -4,7 +4,7 @@
 
 set TIME_start [clock seconds] 
 namespace eval ::optrace {
-  variable script "/home/santiagoalasia/Documentos/UNC/ArquitecturaDeComputadoras/TP-s-ArquitecturasDeComputadoras/TP2/TP2.runs/synth_1/uart_tx.tcl"
+  variable script "/home/santiagoalasia/Documentos/UNC/ArquitecturaDeComputadoras/TP-s-ArquitecturasDeComputadoras/TP2/TP2.runs/synth_1/Uart_Top.tcl"
   variable category "vivado_synth"
 }
 
@@ -71,7 +71,15 @@ set_property ip_output_repo /home/santiagoalasia/Documentos/UNC/ArquitecturaDeCo
 set_property ip_cache_permissions {read write} [current_project]
 OPTRACE "Creating in-memory project" END { }
 OPTRACE "Adding files" START { }
-read_verilog -library xil_defaultlib /home/santiagoalasia/Documentos/UNC/ArquitecturaDeComputadoras/TP-s-ArquitecturasDeComputadoras/TP2/TP2.srcs/sources_1/new/uart_tx.v
+read_verilog -library xil_defaultlib {
+  /home/santiagoalasia/Documentos/UNC/ArquitecturaDeComputadoras/TP-s-ArquitecturasDeComputadoras/TP1_ALU/TP1_ALU.srcs/sources_1/new/ALU_Core.v
+  /home/santiagoalasia/Documentos/UNC/ArquitecturaDeComputadoras/TP-s-ArquitecturasDeComputadoras/TP2/TP2.srcs/sources_1/new/Baud_Rate_Generator.v
+  /home/santiagoalasia/Documentos/UNC/ArquitecturaDeComputadoras/TP-s-ArquitecturasDeComputadoras/TP2/TP2.srcs/sources_1/new/Fifo.v
+  /home/santiagoalasia/Descargas/WhatSie/Interface.v
+  /home/santiagoalasia/Documentos/UNC/ArquitecturaDeComputadoras/TP-s-ArquitecturasDeComputadoras/TP2/TP2.srcs/sources_1/new/Uart_Rx.v
+  /home/santiagoalasia/Documentos/UNC/ArquitecturaDeComputadoras/TP-s-ArquitecturasDeComputadoras/TP2/TP2.srcs/sources_1/new/Uart_Tx.v
+  /home/santiagoalasia/Documentos/UNC/ArquitecturaDeComputadoras/TP-s-ArquitecturasDeComputadoras/TP2/TP2.srcs/sources_1/new/Uart_Top.v
+}
 OPTRACE "Adding files" END { }
 # Mark all dcp files as not used in implementation to prevent them from being
 # stitched into the results of this synthesis run. Any black boxes in the
@@ -85,7 +93,7 @@ set_param ips.enableIPCacheLiteLoad 1
 close [open __synthesis_is_running__ w]
 
 OPTRACE "synth_design" START { }
-synth_design -top uart_tx -part xc7a35tcpg236-1
+synth_design -top Uart_Top -part xc7a35tcpg236-1
 OPTRACE "synth_design" END { }
 if { [get_msg_config -count -severity {CRITICAL WARNING}] > 0 } {
  send_msg_id runtcl-6 info "Synthesis results are not added to the cache due to CRITICAL_WARNING"
@@ -95,10 +103,10 @@ if { [get_msg_config -count -severity {CRITICAL WARNING}] > 0 } {
 OPTRACE "write_checkpoint" START { CHECKPOINT }
 # disable binary constraint mode for synth run checkpoints
 set_param constraints.enableBinaryConstraints false
-write_checkpoint -force -noxdef uart_tx.dcp
+write_checkpoint -force -noxdef Uart_Top.dcp
 OPTRACE "write_checkpoint" END { }
 OPTRACE "synth reports" START { REPORT }
-generate_parallel_reports -reports { "report_utilization -file uart_tx_utilization_synth.rpt -pb uart_tx_utilization_synth.pb"  } 
+generate_parallel_reports -reports { "report_utilization -file Uart_Top_utilization_synth.rpt -pb Uart_Top_utilization_synth.pb"  } 
 OPTRACE "synth reports" END { }
 file delete __synthesis_is_running__
 close [open __synthesis_is_complete__ w]

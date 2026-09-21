@@ -1,7 +1,3 @@
-
-*** Running vivado
-    with args -log Uart_Top.vds -m64 -product Vivado -mode batch -messageDb vivado.pb -notrace -source Uart_Top.tcl
-
 INFO: [Common 17-3922] A valid Vivado Design Suite BASIC license has been detected. Your current license is active and will expire on 25-aug-2027.
 #-----------------------------------------------------------
 # Vivado v2026.1 (64-bit)
@@ -26,15 +22,6 @@ INFO: [Common 17-3922] A valid Vivado Design Suite BASIC license has been detect
 # Total Virtual      : 10347 MB
 # Available Virtual  : 4437 MB
 #-----------------------------------------------------------
-
-****** Vivado v2026.1 (64-bit)
-  **** SW Build 6511674 on Tue Jun 16 11:01:26 MDT 2026
-  **** IP Build 6504888 on Tue Jun 09 09:05:25 MDT 2026
-  **** SharedData Build 6501428 on Mon Jun 08 17:34:18 MDT 2026
-  **** Start of session at: Mon Sep 21 13:49:35 2026
-    ** Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
-    ** Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
-
 source Uart_Top.tcl -notrace
 create_project: Time (s): cpu = 00:00:21 ; elapsed = 00:00:06 . Memory (MB): peak = 1725.176 ; gain = 281.059 ; free physical = 815 ; free virtual = 3787
 Command: synth_design -top Uart_Top -part xc7a35tcpg236-1

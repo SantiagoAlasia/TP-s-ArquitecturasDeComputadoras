@@ -1,8 +1,17 @@
 `timescale 1ns / 1ps
 
+//////////////////////////////////////////////////////////////////////////////////
+// Company: UNC
+// Module Name: Uart_Rx
+// Project Name: TP2-UART
+// Description: Receptor de Datos.
+//////////////////////////////////////////////////////////////////////////////////
+
+
 module UartRx
 #(
     parameter NB_DATA = 8,
+    parameter NS_TICK = 16,      // Num. de ticks para el stop
     parameter N_TICKS = 16
 )
 (
@@ -116,7 +125,7 @@ module UartRx
             STOP:
                 if (i_tick) 
                 begin
-                    if (ticks == BIT_COMPLETO) 
+                    if (ticks == NS_TICK - 1) 
                     begin
                         state_next   = IDLE;
                         rx_done_next = rx_sync;

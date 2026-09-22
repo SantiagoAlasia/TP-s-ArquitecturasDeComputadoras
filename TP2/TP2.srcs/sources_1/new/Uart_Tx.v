@@ -21,7 +21,8 @@ module uart_tx
     input  wire [ND_BIT - 1 : 0]i_data,
     
     output wire o_tx,
-    output wire o_tx_done
+    output wire o_tx_done,
+    output wire o_busy
 );
 
     // Estados de la FSM
@@ -75,7 +76,7 @@ module uart_tx
         next_data_reg   = data_reg;
         next_tick_count = tick_count;
         next_bit_count  = bit_count;
-        //tx_done_reg     = 1'b0;      
+        tx_done_reg     = 1'b0;      
         
         case(state_reg)
             idle:
@@ -146,5 +147,6 @@ module uart_tx
 
     assign o_tx_done = tx_done_reg;
     assign o_tx = tx_reg;    
+    assign o_busy = (state_reg != idle);
 
 endmodule

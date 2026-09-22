@@ -75,7 +75,7 @@ read_verilog -library xil_defaultlib {
   /home/santiagoalasia/Documentos/UNC/ArquitecturaDeComputadoras/TP-s-ArquitecturasDeComputadoras/TP1_ALU/TP1_ALU.srcs/sources_1/new/ALU_Core.v
   /home/santiagoalasia/Documentos/UNC/ArquitecturaDeComputadoras/TP-s-ArquitecturasDeComputadoras/TP2/TP2.srcs/sources_1/new/Baud_Rate_Generator.v
   /home/santiagoalasia/Documentos/UNC/ArquitecturaDeComputadoras/TP-s-ArquitecturasDeComputadoras/TP2/TP2.srcs/sources_1/new/Fifo.v
-  /home/santiagoalasia/Descargas/WhatSie/Interface.v
+  /home/santiagoalasia/Documentos/UNC/ArquitecturaDeComputadoras/TP-s-ArquitecturasDeComputadoras/TP2/TP2.srcs/sources_1/new/Interface.v
   /home/santiagoalasia/Documentos/UNC/ArquitecturaDeComputadoras/TP-s-ArquitecturasDeComputadoras/TP2/TP2.srcs/sources_1/new/Uart_Rx.v
   /home/santiagoalasia/Documentos/UNC/ArquitecturaDeComputadoras/TP-s-ArquitecturasDeComputadoras/TP2/TP2.srcs/sources_1/new/Uart_Tx.v
   /home/santiagoalasia/Documentos/UNC/ArquitecturaDeComputadoras/TP-s-ArquitecturasDeComputadoras/TP2/TP2.srcs/sources_1/new/Uart_Top.v

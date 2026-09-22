@@ -125,10 +125,10 @@ module fifo
         endcase
     end
 
-    assign o_full  = full;
-    assign o_empty = empty;
-    assign o_data  = data_reg;
-    assign o_done_read  = done_read_reg;
+    assign o_full        = full;
+    assign o_empty       = empty;
+    assign o_data        = data_reg;
+    assign o_done_read   = done_read_reg;
     assign o_done_write  = done_write_reg;
 
 endmodule

@@ -74,6 +74,13 @@ module test_Uart_Top;
 
     reg [NB_DATA_TB - 1 : 0] byte_recibido;
 
+    // ---------- Watchdog: corta la simulacion si algo queda esperando para siempre ----------
+    initial begin
+        #(BIT_PERIOD_NS*200);
+        $display("ERROR: timeout de simulacion (o_tx nunca transmitio?)");
+        $finish;
+    end
+
     initial begin
         $dumpfile("dump.vcd");
         $dumpvars(0, test_Uart_Top);
@@ -88,31 +95,33 @@ module test_Uart_Top;
         // Caso 1: ADD, opcode=0x20 (bits bajos 100000), A=5, B=3
         // Orden esperado por Interface: opcode, luego A, luego B
         // ============================================================
-        send_byte(8'b00100000);   // opcode ADD (los 6 bits bajos son 100000)
-        send_byte(8'd5);          // A
-        send_byte(8'd3);          // B
-
-        // Dar tiempo a que Interface + ALU_Core procesen (es rapido, pero
-        // dejamos margen generoso)
-        #(BIT_PERIOD_NS*4);
+        // La placa empieza a transmitir apenas recibe B, asi que el receptor
+        // tiene que estar escuchando o_tx en paralelo con el envio.
+        fork
+            begin
+                send_byte(8'b00100000);   // opcode ADD (los 6 bits bajos son 100000)
+                send_byte(8'd5);          // A
+                send_byte(8'd3);          // B
+            end
+            recv_byte(byte_recibido);     // capturar lo que la placa retransmite por o_tx
+        join
 
         $display("Caso 1a o_leds tras ADD 5+3 = %d (esperado 8)", leds);
-
-        // Capturar lo que la placa retransmite por o_tx
-        recv_byte(byte_recibido);
         $display("Caso 1b byte recibido por o_tx = %d (esperado 8)", byte_recibido);
 
         // ============================================================
         // Caso 2: SUB, opcode=0x22 (bits bajos 100010), A=10, B=4
         // ============================================================
-        send_byte(8'b00100010);   // opcode SUB
-        send_byte(8'd10);         // A
-        send_byte(8'd4);          // B
+        fork
+            begin
+                send_byte(8'b00100010);   // opcode SUB
+                send_byte(8'd10);         // A
+                send_byte(8'd4);          // B
+            end
+            recv_byte(byte_recibido);
+        join
 
-        #(BIT_PERIOD_NS*4);
         $display("Caso 2a o_leds tras SUB 10-4 = %d (esperado 6)", leds);
-
-        recv_byte(byte_recibido);
         $display("Caso 2b byte recibido por o_tx = %d (esperado 6)", byte_recibido);
 
         #(BIT_PERIOD_NS*4);

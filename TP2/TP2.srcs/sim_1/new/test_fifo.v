@@ -14,21 +14,23 @@ module test_fifo;
     wire                   full;
     wire                   empty;
     wire [NB_DATA - 1 : 0] data_out;
-    wire                   done;
+    wire                   done_write;
+    wire                   done_read;
 
-    Fifo #(
+    fifo #(
         .NB_DATA (NB_DATA),
         .N_DIR   (N_DIR)
     ) DUT (
-        .i_clk   (clk),
-        .i_reset (reset),
-        .i_read  (read),
-        .i_write (write),
-        .i_data  (data_in),
-        .o_full  (full),
-        .o_empty (empty),
-        .o_data  (data_out),
-        .o_done  (done)
+        .i_clk        (clk),
+        .i_reset      (reset),
+        .i_read       (read),
+        .i_write      (write),
+        .i_data       (data_in),
+        .o_full       (full),
+        .o_empty      (empty),
+        .o_data       (data_out),
+        .o_done_write (done_write),
+        .o_done_read  (done_read)
     );
 
     initial clk = 0;
@@ -139,11 +141,11 @@ module test_fifo;
         $display("Caso 5g empty tras vaciar todo = %b (esperado 1)", empty);
 
         // ============================================================
-        // Caso 6: pulso de o_done, escritura vs lectura
+        // Caso 6: pulsos de o_done_write y o_done_read
         // ============================================================
         write_byte(8'h55);
         #(CLK_PERIOD*3);
-        $display("Caso 6  (verificar o_done en la waveform para write y read)");
+        $display("Caso 6  (verificar o_done_write / o_done_read en la waveform)");
         read_byte;
         #(CLK_PERIOD*3);
 

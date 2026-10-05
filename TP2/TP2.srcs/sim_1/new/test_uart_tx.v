@@ -14,6 +14,7 @@ module test_uart_tx;
     reg  [ND_BIT - 1 : 0]  data_in;
     wire                   tx;
     wire                   tx_done;
+    reg                    tick;    // declarado antes de usarse en el DUT
 
     // ---------- DUT ----------
     uart_tx #(
@@ -35,7 +36,6 @@ module test_uart_tx;
     always #(CLK_PERIOD/2) clk = ~clk;
 
     // ---------- Generador de tick simplificado ----------
-    reg        tick;
     reg [7:0]  tick_counter;
 
     always @(posedge clk)
@@ -85,7 +85,7 @@ module test_uart_tx;
         wait (tx_done == 1'b1);
         #(CLK_PERIOD*5);
 
-        $display("Transmision completa. Byte enviado: %b", 8'b10011010);
+        $display("Transmision completa. Byte enviado: %b", data_in);
         $finish;
     end
 

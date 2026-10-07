@@ -93,10 +93,7 @@ module test_Uart_Top;
 
         // ============================================================
         // Caso 1: ADD, opcode=0x20 (bits bajos 100000), A=5, B=3
-        // Orden esperado por Interface: opcode, luego A, luego B
         // ============================================================
-        // La placa empieza a transmitir apenas recibe B, asi que el receptor
-        // tiene que estar escuchando o_tx en paralelo con el envio.
         fork
             begin
                 send_byte(8'b00100000);   // opcode ADD (los 6 bits bajos son 100000)
@@ -123,6 +120,36 @@ module test_Uart_Top;
 
         $display("Caso 2a o_leds tras SUB 10-4 = %d (esperado 6)", leds);
         $display("Caso 2b byte recibido por o_tx = %d (esperado 6)", byte_recibido);
+
+        // ========================================================================
+        // Caso 3: OR, opcode=0x25 (bits bajos 100101), A=00100100, B=01000100
+        // ========================================================================
+        fork
+            begin
+                send_byte(8'b00100101);   // opcode OR
+                send_byte(8'b00100100);          // A
+                send_byte(8'b01000100);          // B
+            end
+            recv_byte(byte_recibido);     // capturar lo que la placa retransmite por o_tx
+        join
+
+        $display("Caso 3a o_leds tras OR 36 OR 68 = %d (esperado 100)", leds);
+        $display("Caso 3b byte recibido por o_tx = %d (esperado 100)", byte_recibido);
+
+        // ============================================================
+        // Caso 4: SRA, opcode=0x03 (bits bajos 000011), A=82, B=4
+        // ============================================================
+        fork
+            begin
+                send_byte(8'b00000011);   // opcode SRA
+                send_byte(8'd82);         // A
+                send_byte(8'd4);          // B
+            end
+            recv_byte(byte_recibido);
+        join
+
+        $display("Caso 4a o_leds tras SRA 82>>>4 = %d (esperado 5)", leds);
+        $display("Caso 4b byte recibido por o_tx = %d (esperado 5)", byte_recibido);
 
         #(BIT_PERIOD_NS*4);
         $finish;

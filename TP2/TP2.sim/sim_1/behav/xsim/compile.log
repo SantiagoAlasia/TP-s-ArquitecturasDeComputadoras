@@ -1,0 +1,16 @@
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/santiagoalasia/Documentos/UNC/ArquitecturaDeComputadoras/TP-s-ArquitecturasDeComputadoras/TP1_ALU/TP1_ALU.srcs/sources_1/new/ALU_Core.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module ALU_Core
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/santiagoalasia/Documentos/UNC/ArquitecturaDeComputadoras/TP-s-ArquitecturasDeComputadoras/TP2/TP2.srcs/sources_1/new/Baud_Rate_Generator.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module BaudGenerator
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/santiagoalasia/Documentos/UNC/ArquitecturaDeComputadoras/TP-s-ArquitecturasDeComputadoras/TP2/TP2.srcs/sources_1/new/Fifo.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module fifo
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/santiagoalasia/Documentos/UNC/ArquitecturaDeComputadoras/TP-s-ArquitecturasDeComputadoras/TP2/TP2.srcs/sources_1/new/Interface.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module Interface
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/santiagoalasia/Documentos/UNC/ArquitecturaDeComputadoras/TP-s-ArquitecturasDeComputadoras/TP2/TP2.srcs/sources_1/new/Uart_Rx.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module UartRx
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/santiagoalasia/Documentos/UNC/ArquitecturaDeComputadoras/TP-s-ArquitecturasDeComputadoras/TP2/TP2.srcs/sources_1/new/Uart_Top.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module Uart_Top
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/santiagoalasia/Documentos/UNC/ArquitecturaDeComputadoras/TP-s-ArquitecturasDeComputadoras/TP2/TP2.srcs/sources_1/new/Uart_Tx.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module uart_tx
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/santiagoalasia/Documentos/UNC/ArquitecturaDeComputadoras/TP-s-ArquitecturasDeComputadoras/TP2/TP2.srcs/sim_1/new/test_uart_top.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module test_Uart_Top

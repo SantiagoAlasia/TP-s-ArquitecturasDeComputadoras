@@ -1,8 +1,11 @@
 Time resolution is 1 ps
 Caso 1a o_leds tras ADD 5+3 =   8 (esperado 8)
-Caso 1b byte recibido por o_tx = 248 (esperado 8)
+Caso 1b byte recibido por o_tx =   8 (esperado 8)
 Caso 2a o_leds tras SUB 10-4 =   6 (esperado 6)
-Caso 1a o_leds tras ADD 5+3 =   8 (esperado 8)
-Caso 1b byte recibido por o_tx = 248 (esperado 8)
-Caso 2a o_leds tras SUB 10-4 =   6 (esperado 6)
-INFO: xsimkernel Simulation Memory Usage: 357292 KB (Peak: 422828 KB), Simulation CPU Usage: 32020 ms
+Caso 2b byte recibido por o_tx =   6 (esperado 6)
+Caso 3a o_leds tras OR 36 OR 68 = 100 (esperado 100)
+Caso 3b byte recibido por o_tx = 100 (esperado 100)
+Caso 4a o_leds tras SRA 82>>>4 =   5 (esperado 5)
+Caso 4b byte recibido por o_tx =   5 (esperado 5)
+$finish called at time : 103005 ns : File "/home/santiagoalasia/Documentos/UNC/ArquitecturaDeComputadoras/TP-s-ArquitecturasDeComputadoras/TP2/TP2.srcs/sim_1/new/test_uart_top.v" Line 155
+INFO: xsimkernel Simulation Memory Usage: 291772 KB (Peak: 349304 KB), Simulation CPU Usage: 1930 ms

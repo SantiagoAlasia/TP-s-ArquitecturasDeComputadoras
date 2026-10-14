@@ -10,7 +10,6 @@ module test_Uart_Top;
     localparam NB_OP_TB        = 6;
     localparam CLK_PERIOD      = 10;
 
-    // Recalculo el mismo divisor que calcula BaudGenerator, para saber cuanto dura cada bit serie
     localparam integer TICKS_POR_SEG_TB    = BAUD_RATE_TB * OVERSAMPLING_TB;
     localparam integer DIVISOR_TB          = (CLK_FREQ_HZ_TB + TICKS_POR_SEG_TB/2) / TICKS_POR_SEG_TB;
     localparam integer BIT_PERIOD_CYCLES   = DIVISOR_TB * OVERSAMPLING_TB;
@@ -73,8 +72,7 @@ module test_Uart_Top;
     endtask
 
     reg [NB_DATA_TB - 1 : 0] byte_recibido;
-
-    // ---------- Watchdog: corta la simulacion si algo queda esperando para siempre ----------
+    
     initial begin
         #(BIT_PERIOD_NS*200);
         $display("ERROR: timeout de simulacion (o_tx nunca transmitio?)");
@@ -86,7 +84,7 @@ module test_Uart_Top;
         $dumpvars(0, test_Uart_Top);
 
         reset   = 1;
-        rx_line = 1'b1;   // linea idle en alto
+        rx_line = 1'b1;   
         #(CLK_PERIOD*5);
         reset = 0;
         #(CLK_PERIOD*5);

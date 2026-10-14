@@ -28,9 +28,9 @@ module fifo
 );
 
     // Estados de la FSM
-    localparam [1:0] idle  = 2'b00;
-    localparam [1:0] write = 2'b01;
-    localparam [1:0] read  = 2'b10;
+    localparam [1:0] IDLE  = 2'b00;
+    localparam [1:0] WRITE = 2'b01;
+    localparam [1:0] READ  = 2'b10;
 
     localparam integer N_PTR = $clog2(N_DIR);
 
@@ -60,7 +60,7 @@ module fifo
     begin
         if (i_reset)
             begin
-                state_reg  <= idle;
+                state_reg  <= IDLE;
                 wr_ptr_reg <= 0;
                 rd_ptr_reg <= 0;
                 count_reg  <= 0;
@@ -75,20 +75,20 @@ module fifo
                 rd_ptr_reg <= next_rd_ptr_reg;
                 count_reg  <= next_count_reg;
                 data_reg   <= next_data_reg;
-                done_write_reg   <= (state_reg == write);
-                done_read_reg    <= (state_reg == read);
+                done_write_reg   <= (state_reg == WRITE);
+                done_read_reg    <= (state_reg == READ);
             end
     end
 
     // Escritura a Memoria
     always @(posedge i_clk)
     begin
-        if (state_reg == write)
+        if (state_reg == WRITE)
             mem[wr_ptr_reg] <= i_data;
     end
 
     // Next State Logic & Output Logic
-    always @*
+    always @(*)
     begin
         next_state_reg  = state_reg;
         next_wr_ptr_reg = wr_ptr_reg;
@@ -97,31 +97,31 @@ module fifo
         next_data_reg   = data_reg;
 
         case (state_reg)
-            idle:
+            IDLE:
                 begin
                     if (i_write && !full)
-                        next_state_reg = write;
+                        next_state_reg = WRITE;
                     else if (i_read && !empty)
-                        next_state_reg = read;
+                        next_state_reg = READ;
                 end
 
-            write:
+            WRITE:
                 begin
                     next_wr_ptr_reg = wr_ptr_reg + 1'b1;
                     next_count_reg  = count_reg + 1'b1;
-                    next_state_reg  = idle;
+                    next_state_reg  = IDLE;
                 end
 
-            read:
+            READ:
                 begin
                     next_data_reg   = mem[rd_ptr_reg];
                     next_rd_ptr_reg = rd_ptr_reg + 1'b1;
                     next_count_reg  = count_reg - 1'b1;
-                    next_state_reg  = idle;
+                    next_state_reg  = IDLE;
                 end
 
             default:
-                next_state_reg = idle;
+                next_state_reg = IDLE;
         endcase
     end
 

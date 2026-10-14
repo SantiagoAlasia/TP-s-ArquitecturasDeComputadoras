@@ -6,7 +6,7 @@ module test_uart_tx;
     parameter TICKS_POR_BIT = 16;
     parameter NS_TICK       = 16;
     parameter CLK_PERIOD    = 10;
-    parameter TICK_PERIOD   = 4;   // cada cuantos ciclos de clk se genera 1 tick
+    parameter TICK_PERIOD   = 4;   
 
     reg                    clk;
     reg                    reset;
@@ -14,9 +14,8 @@ module test_uart_tx;
     reg  [ND_BIT - 1 : 0]  data_in;
     wire                   tx;
     wire                   tx_done;
-    reg                    tick;    // declarado antes de usarse en el DUT
+    reg                    tick;   
 
-    // ---------- DUT ----------
     uart_tx #(
         .ND_BIT        (ND_BIT),
         .TICKS_POR_BIT (TICKS_POR_BIT),
@@ -31,11 +30,10 @@ module test_uart_tx;
         .o_tx_done  (tx_done)
     );
 
-    // ---------- Clock ----------
     initial clk = 0;
     always #(CLK_PERIOD/2) clk = ~clk;
 
-    // ---------- Generador de tick simplificado ----------
+    // Generador de tick simplificado
     reg [7:0]  tick_counter;
 
     always @(posedge clk)
@@ -57,12 +55,9 @@ module test_uart_tx;
         end
     end
 
-    // ---------- Monitor de la salida serie ----------
-    // Se dispara cada vez que "tx" cambia, para ver los bits a medida que salen
     initial
         $monitor("t=%0t  tx=%b  tx_done=%b  state=%b", $time, tx, tx_done, DUT.state_reg);
 
-    // ---------- Estimulos ----------
     initial begin
         $dumpfile("dump.vcd");
         $dumpvars(0, test_uart_tx);
@@ -81,7 +76,7 @@ module test_uart_tx;
         #(CLK_PERIOD);
         tx_start = 0;
 
-        // Esperar a que termine (start + 8 datos + stop, cada uno TICKS_POR_BIT*TICK_PERIOD ciclos de clk)
+        // Esperar a que termine 
         wait (tx_done == 1'b1);
         #(CLK_PERIOD*5);
 

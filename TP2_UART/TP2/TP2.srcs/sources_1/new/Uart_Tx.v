@@ -26,10 +26,10 @@ module uart_tx
 );
 
     // Estados de la FSM
-    localparam [1:0] idle  = 2'b00;
-    localparam [1:0] start = 2'b01;
-    localparam [1:0] data  = 2'b10;
-    localparam [1:0] stop  = 2'b11;
+    localparam [1:0] IDLE  = 2'b00;
+    localparam [1:0] START = 2'b01;
+    localparam [1:0] DATA  = 2'b10;
+    localparam [1:0] STOP  = 2'b11;
     
     // Tamaño del contador de Ticks
     localparam integer ND_TICK = $clog2(TICKS_POR_BIT);
@@ -52,7 +52,7 @@ module uart_tx
     begin
         if (i_reset)
             begin
-                state_reg  <= idle;
+                state_reg  <= IDLE;
                 data_reg   <= 0; 
                 tx_reg     <= 1'b1;
                 tick_count <= 0;
@@ -69,7 +69,7 @@ module uart_tx
     end
 
     // Next State Logic & Output Logic
-    always @*
+    always @(*)
     begin
         next_state_reg  = state_reg;
         next_tx_reg     = tx_reg;
@@ -79,32 +79,32 @@ module uart_tx
         tx_done_reg     = 1'b0;      
         
         case(state_reg)
-            idle:
+            IDLE:
                 begin
                     next_tx_reg = 1'b1;
                     if (i_tx_start)
                         begin
-                            next_state_reg  = start;
+                            next_state_reg  = START;
                             next_data_reg   = i_data;
                             tx_done_reg     = 1'b0;  
                             next_tick_count = 0;
                         end
                 end
-            start:
+            START:
                 begin
                     next_tx_reg = 1'b0;
                     if (i_tick)
                         begin
                             if(tick_count == TICKS_POR_BIT - 1)
                                 begin
-                                    next_state_reg  = data;
+                                    next_state_reg  = DATA;
                                     next_tick_count = 0;
                                 end
                             else
                                 next_tick_count = tick_count + 1;
                         end
                 end
-            data:
+            DATA:
                 begin
                     next_tx_reg = data_reg[0];
                     if (i_tick)
@@ -116,7 +116,7 @@ module uart_tx
                                     
                                     if(bit_count == ND_BIT - 1)
                                         begin
-                                            next_state_reg  = stop;
+                                            next_state_reg  = STOP;
                                             next_bit_count  = 0;
                                             next_tick_count = 0;
                                         end
@@ -127,14 +127,14 @@ module uart_tx
                                 next_tick_count = tick_count + 1;
                         end
                 end
-            stop:
+            STOP:
                 begin
                     next_tx_reg = 1'b1;
                     if(i_tick)
                         begin
                             if(tick_count == NS_TICK - 1)
                                 begin
-                                    next_state_reg  = idle;
+                                    next_state_reg  = IDLE;
                                     next_tick_count = 0;   
                                     tx_done_reg     = 1'b1;                                   
                                 end
@@ -147,6 +147,6 @@ module uart_tx
 
     assign o_tx_done = tx_done_reg;
     assign o_tx = tx_reg;    
-    assign o_busy = (state_reg != idle);
+    assign o_busy = (state_reg != IDLE);
 
 endmodule

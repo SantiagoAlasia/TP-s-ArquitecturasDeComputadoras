@@ -1,6 +1,6 @@
 ## ============================================================
 ## Constraints para Uart_Top - Placa Basys3 (Artix-7)
-## Puertos del top: i_clk, i_reset, i_rx, o_tx, o_leds[7:0]
+## Puertos del top: clk, i_reset, i_rx, o_tx, o_leds[7:0]
 ## ============================================================
 
 ## ---------- Clock (100 MHz) ----------

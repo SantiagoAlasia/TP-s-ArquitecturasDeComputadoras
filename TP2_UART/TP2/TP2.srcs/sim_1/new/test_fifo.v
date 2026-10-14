@@ -36,7 +36,6 @@ module test_fifo;
     initial clk = 0;
     always #(CLK_PERIOD/2) clk = ~clk;
 
-    // Tarea: escribir un byte y esperar a que la FIFO confirme
     task write_byte(input [NB_DATA-1:0] value);
     begin
         @(negedge clk);
@@ -47,7 +46,6 @@ module test_fifo;
     end
     endtask
 
-    // Tarea: pulsar read
     task read_byte;
     begin
         @(negedge clk);
@@ -124,12 +122,12 @@ module test_fifo;
         #(CLK_PERIOD);
         $display("Caso 5  full tras llenar (4/4) = %b (esperado 1)", full);
 
-        // Intentar escribir con buffer lleno (no deberia hacer nada)
+        // Intentar escribir con buffer lleno
         write_byte(8'hFF);
         #(CLK_PERIOD);
         $display("Caso 5b full sigue en 1 tras intento de escritura extra = %b (esperado 1)", full);
 
-        // Vaciar todo y confirmar que el orden se mantuvo (no se colo el FF)
+        // Vaciar todo y confirmar que el orden se mantuvo 
         read_byte; #(CLK_PERIOD*2);
         $display("Caso 5c dato = %h (esperado A0)", data_out);
         read_byte; #(CLK_PERIOD*2);

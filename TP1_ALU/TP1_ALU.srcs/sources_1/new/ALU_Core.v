@@ -1,22 +1,10 @@
 `timescale 1ns / 1ps
 //////////////////////////////////////////////////////////////////////////////////
 // Company: UNC
-// Engineer: 
-// 
-// Create Date: 08/27/2026 07:31:38 PM
-// Design Name: 
 // Module Name: ALU_Core
-// Project Name:TP1-ALU 
-// Target Devices: 
-// Tool Versions: 
-// Description: 
-// 
-// Dependencies: 
-// 
-// Revision:
-// Revision 0.01 - File Created
-// Additional Comments:
-// 
+// Project Name: TP2-UART
+// Description: Modulo puramente combinacional con las operaciones 
+//              Aritmeticas y Logicas requeridas. 
 //////////////////////////////////////////////////////////////////////////////////
 
 module ALU_Core 

@@ -16,13 +16,15 @@ Interfaz de terminal para operar la Debug Unit, al estilo de lazygit: **una sola
 ```
 ┌─ 1 Programa ─────────┐┌─ 2 Registros ─────────────────────┐
 │                      ││  (4 columnas x 8)                 │
-│  (alto completo,     │├─ 3 Memoria de datos ──────────────┤
+│                      │└───────────────────────────────────┘  
+│  (alto completo,     │┌─ 3 Memoria de datos ──────────────┐
 │   sigue al PC)       ││                                   │
-└──────────────────────┘└───────────────────────────────────┘
-┌─ 4 Pipeline (latches) ───────────────────────────────────┐
-└──────────────────────────────────────────────────────────┘
-┌─ 5 Log UART ─────────────────────────────────────────────┐
-└──────────────────────────────────────────────────────────┘
+│                      │└───────────────────────────────────┘   
+|                      │┌─ 4 Pipeline (latches) ────────────┐
+│                      ││                                   │
+│                      │└───────────────────────────────────┘
+|                      │┌─ 5 Log UART ──────────────────────┐
+│                      ││                                   │                    └──────────────────────┘└───────────────────────────────────┘
  PAUSADO │ PC 0x0010 │ /dev/ttyUSB1 @ 115200 │ demo.asm      p Programa  c Continuo  s Paso ...
 ```
 
@@ -80,10 +82,11 @@ Las constantes están al principio de `tui.py`; el bloque `CSS` repite algunas c
 ## Cómo ejecutarla
 
 ```bash
-cd ~/tp-riscv/rvdebug
+cd ~/TP3/TUI
 python3 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt     # ojo: con -r
+cd ~/TP3/TUI/src
 python tui.py                       # solo interfaz, sin puerto
 python tui.py --port /dev/ttyUSB1   # con la FPGA
 ```

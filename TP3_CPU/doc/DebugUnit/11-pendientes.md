@@ -18,6 +18,7 @@ Up: [Índice](INDEX.md)
 - [ ] Verilog del [Execution Controller](06-execution-controller.md) y su testbench, incluyendo el drenaje.
 - [ ] Verilog del [Serializer](07-serializer.md) con el Byte Pusher y su testbench.
 - [ ] Adaptar `Uart_Top.v`: conectar las FIFOs a Decoder y Serializer.
+- [ ] Modificar la velocidad del modulo `UART_Top.v`
 - [ ] Decidir si se agregan las respuestas `K` y `N` (hoy opcionales).
 
 ### Con el pipeline

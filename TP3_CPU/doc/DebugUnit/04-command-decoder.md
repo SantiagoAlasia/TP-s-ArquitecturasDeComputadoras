@@ -9,7 +9,7 @@ aliases: [Decoder, Byte Fetcher]
 
 Up: [Índice](INDEX.md)
 
-Lee bytes de la FIFO RX, interpreta el comando y emite pulsos hacia el [Program Loader](05-program-loader.md) y el [Execution Controller](06-execution-controller.md). Código: `Command_Decoder.v` (simulado con Icarus Verilog contra la FIFO real, 0 errores).
+Lee bytes de la FIFO RX, interpreta el comando y emite pulsos hacia el [Program Loader](05-program-loader.md) y el [Execution Controller](06-execution-controller.md). Código: `Command_Decoder.v`.
 
 ## Estructura: dos mini-FSM
 

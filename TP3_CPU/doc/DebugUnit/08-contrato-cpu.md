@@ -9,7 +9,7 @@ aliases: [Interfaz con el CPU, Señales CPU]
 
 Up: [Índice](INDEX.md)
 
-Estado: **borrador, a acordar** con quien desarrolla el pipeline. Reúne todo lo que la Debug Unit necesita del CPU y lo que se le pide.
+Estado: **borrador, a acordar**. Reúne todo lo que la Debug Unit necesita del CPU y lo que se le pide.
 
 ## Señales
 
